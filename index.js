@@ -85,6 +85,12 @@ document
     });
   });
 
+window
+  .visualViewport
+  .addEventListener("resize", () => {
+    feed?.handleResize();
+  });
+
 class Feed {
   /** @type {Element} */
   #domList;
@@ -208,6 +214,15 @@ class Feed {
       this.#mediaAt(this.#current)?.play();
       this.#playing = true;
     }
+  }
+
+  handleResize() {
+    const item = this.#domItems[this.#current];
+
+    item?.scrollIntoView({
+      block: "start",
+      behavior: "instant",
+    });
   }
 
   dispose() {
