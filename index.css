@@ -1,0 +1,207 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #181818;
+}
+
+[popover] {
+  position-area: bottom;
+  margin: initial;
+}
+
+.menu-button {
+  cursor: pointer;
+
+  position: fixed;
+  top: max(16px, env(safe-area-inset-top));
+  right: max(16px, env(safe-area-inset-right));
+
+  width: 44px;
+  height: 44px;
+
+  display: grid;
+  place-items: center;
+
+  border: none;
+  background: none;
+  color: white;
+
+  mix-blend-mode: difference;
+
+  font-size: 28px;
+}
+
+#menu {
+  margin: 0;
+  padding: 8px;
+
+  min-width: 180px;
+
+  border: none;
+  border-radius: 16px;
+
+  background: rgb(32 32 32 / 0.95);
+  color: white;
+
+  box-shadow:
+    0 8px 32px rgb(0 0 0 / 0.35);
+
+  backdrop-filter: blur(16px);
+
+  opacity: 0;
+  transform: translateY(-8px) scale(0.98);
+
+  transition:
+    opacity 150ms ease,
+    transform 150ms ease;
+
+  transition-behavior: allow-discrete;
+}
+
+#menu:popover-open {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+#menu button {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  padding: 12px 16px;
+
+  border: none;
+  border-radius: 10px;
+
+  background: none;
+  color: inherit;
+
+  font: inherit;
+  text-align: left;
+
+  cursor: pointer;
+
+  transition: background-color 120ms ease;
+}
+
+#menu button:hover,
+#menu button:focus-visible {
+  background: rgb(255 255 255 / 0.08);
+  outline: none;
+}
+
+#menu button:active {
+  background: rgb(255 255 255 / 0.16);
+}
+
+#menu hr {
+  margin: 8px 0;
+
+  border: none;
+  border-top: 1px solid rgb(255 255 255 / 0.12);
+}
+
+.viewport {
+  width: 100%;
+  height: 100dvh;
+}
+
+.list {
+  height: 100dvh;
+
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  overflow-y: scroll;
+
+  /* prevent accidentally going back or triggering other swipe events */
+  overscroll-behavior: contain;
+
+  /* hide scroll bar */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  /* momentum scroll on iOS */
+  -webkit-overflow-scrolling: touch;
+
+  /* disbable horizontal scroll for touch */
+  touch-action: pan-y;
+
+  /* scroll snapping */
+  scroll-snap-type: y mandatory;
+}
+
+/* hide scroll bar */
+.list::-webkit-scrollbar {
+  display: none;
+}
+
+.item {
+  width: 100%;
+  min-height: 100dvh;
+  flex-shrink: 0;
+
+  /* scroll snapping */
+  scroll-snap-align: start;
+
+  /* maybe this will work in the future 🤷‍♂️ */
+  scroll-snap-stop: always;
+}
+
+/* 
+  The styling below is only for the decoration of this demo, 
+  it has no impact on scrolling or scroll behavior
+*/
+.list {
+  list-style: none;
+  padding: 0;
+}
+
+.item {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.item video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  height: 4px;
+  background: rgb(255 255 255 / 0.2);
+}
+
+.fill {
+  height: 100%;
+  width: 0%;
+
+  background: white;
+}
