@@ -173,13 +173,14 @@ class Feed {
       item.appendChild(video);
     }
 
-    if (this.#playing) {
-      this.#mediaAt(this.#current)?.pause();
-      this.#mediaAt(target)?.play();
-    }
-
     {
       this.#listenerProgress?.(this.#mediaAt(target)?.currentTime / this.#mediaAt(target)?.duration);
+    }
+
+    if (this.#playing) {
+      this.#mediaAt(this.#current)?.pause();
+
+      this.#mediaAt(target)?.play();
     }
 
     this.#current = target;
