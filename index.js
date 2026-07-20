@@ -147,7 +147,9 @@ class Feed {
     const hydrate = next.difference(prev);
 
     for (const item of drop) {
-      item.querySelector('video').remove();
+      const video = item.querySelector('video');
+      URL.revokeObjectURL(video.src);
+      video.remove();
     }
 
     for (const item of hydrate) {
