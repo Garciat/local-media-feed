@@ -34,6 +34,20 @@ function shuffle(array) {
   return array;
 }
 
+let toastTimeout;
+
+function toast(message, duration = 3000) {
+  clearTimeout(toastTimeout);
+
+  const element = document.getElementById("toast");
+  element.textContent = message;
+  element.showPopover();
+
+  toastTimeout = setTimeout(() => {
+    element.hidePopover();
+  }, duration);
+}
+
 document
   .getElementById("toggle-fullscreen")
   .addEventListener("click", async () => {
@@ -65,13 +79,16 @@ document
       startIn: "videos"
     });
 
+    const t = performance.now();
+
     const fileHandles = await Array.fromAsync(findAllFiles(directory));
 
     /** @type {FileSystemFileHandle[]} */
     const videoHandles =
       fileHandles
         .filter(fh => /\.(mp4|webm|mkv|mov|avi)$/i.test(fh.name));
-
+    
+    toast(`Loaded ${videoHandles.length} files in ${(performance.now()-t).toFixed(0)}ms`);
 
     feed?.dispose();
 
